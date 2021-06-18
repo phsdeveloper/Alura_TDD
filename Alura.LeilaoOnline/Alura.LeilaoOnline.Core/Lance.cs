@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Alura.LeilaoOnline.Core
+{
+    public class Lance
+    {
+        public Interessada Cliente { get; }
+        public double Valor { get; set; }
+        public Lance(Interessada cliente, double valor)
+        {
+            Cliente = cliente;
+            Valor = valor;
+        }
+    }
+}
