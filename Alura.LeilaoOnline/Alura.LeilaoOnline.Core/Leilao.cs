@@ -17,7 +17,7 @@ namespace Alura.LeilaoOnline.Core
         {
             _lances = new List<Lance>();
             Peca = peca;
-            Estado = EstadoLeilao.LeilaoEmAndamento;
+            Estado = EstadoLeilao.LeilaoAntesDoPregao;
         }
 
         public void RecebeLance(Interessada cliente, double valor)
@@ -28,7 +28,7 @@ namespace Alura.LeilaoOnline.Core
 
         public void IniciarPregao()
         {
-
+            Estado = EstadoLeilao.LeilaoEmAndamento;
         }
 
         public void TerminarPregao()

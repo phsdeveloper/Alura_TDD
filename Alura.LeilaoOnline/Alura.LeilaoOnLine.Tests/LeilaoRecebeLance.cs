@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Alura.LeilaoOnLine.Tests
 {
-    public class LeilaoRecebeOferta
+    public class LeilaoRecebeLance
     {
 
         [Theory]
@@ -18,6 +18,7 @@ namespace Alura.LeilaoOnLine.Tests
             //Arranje - Cenario
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
+            leilao.IniciarPregao();
             foreach (var valor in ofertas)
             {
                 leilao.RecebeLance(fulano, valor);
