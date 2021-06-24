@@ -4,7 +4,7 @@ using Xunit;
 
 namespace Alura.LeilaoOnLine.Tests
 {
-    public class LeilaoTestes
+    public class LeilaoTerminaPregao
     {
         /*******************************************************************************************************************
          *                                              Theory                                                             *
@@ -20,7 +20,7 @@ namespace Alura.LeilaoOnLine.Tests
         [InlineData(1200,new double[] { 800, 900, 1000, 1200 })]
         [InlineData(1000,new double[] { 800, 900, 1000, 990 })]
         [InlineData(800,new double[] { 800})]
-        public void LeilaoComVariosLances(double valorEsperado,double[] ofertas)
+        public void RetornaMariorValorDadoLeilaoComPeloMenosUmLance(double valorEsperado,double[] ofertas)
         {
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
@@ -49,7 +49,7 @@ namespace Alura.LeilaoOnLine.Tests
          * para que o teste possa ser realizado.                                                                            *
          ********************************************************************************************************************/
         [Fact]
-        public void LeilaoSemLances()
+        public void RetornaZeroDadoLeilaoSemLances()
         {
             var leilao = new Leilao("Van Gogh");
 
