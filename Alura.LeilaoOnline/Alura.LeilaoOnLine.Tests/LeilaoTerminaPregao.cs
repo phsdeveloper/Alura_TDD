@@ -1,5 +1,6 @@
 ﻿using Alura.LeilaoOnline.Core;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace Alura.LeilaoOnLine.Tests
@@ -17,24 +18,26 @@ namespace Alura.LeilaoOnLine.Tests
          *******************************************************************************************************************/
 
         [Theory]
-        [InlineData(1200,new double[] { 800, 900, 1000, 1200 })]
-        [InlineData(1000,new double[] { 800, 900, 1000, 990 })]
-        [InlineData(800,new double[] { 800})]
-        public void RetornaMariorValorDadoLeilaoComPeloMenosUmLance(double valorEsperado,double[] ofertas)
+        [InlineData(1200, new double[] { 800, 900, 1000, 1200 })]
+        [InlineData(1000, new double[] { 800, 900, 1000, 990 })]
+        [InlineData(800, new double[] { 800 })]
+        public void RetornaMariorValorDadoLeilaoComPeloMenosUmLance(double valorEsperado, double[] ofertas)
         {
             var leilao = new Leilao("Van Gogh");
             var fulano = new Interessada("Fulano", leilao);
             var Maria = new Interessada("Maria", leilao);
             leilao.IniciarPregao();
-            foreach (var valor in ofertas)
+            foreach (var valor in ofertas.ToList())
             {
-                leilao.RecebeLance(fulano, valor);
-
+                if (ofertas.ToList().IndexOf(valor) % 2 == 0)
+                    leilao.RecebeLance(fulano, valor);
+                else
+                    leilao.RecebeLance(Maria, valor);
             }
 
             //Act - méto sob teste
             leilao.TerminarPregao();
-            
+
             //Assert
             double ValorObtido = leilao.Ganhador.Valor;
             Assert.Equal(valorEsperado, ValorObtido);

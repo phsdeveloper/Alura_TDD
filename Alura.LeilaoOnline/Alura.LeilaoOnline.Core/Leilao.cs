@@ -12,6 +12,7 @@ namespace Alura.LeilaoOnline.Core
         public string Peca { get; }
         public Lance Ganhador { get; private set; }
         private EstadoLeilao Estado { get; set; }
+        private Interessada _ultimoCliente = null;
 
         public Leilao(string peca)
         {
@@ -23,7 +24,11 @@ namespace Alura.LeilaoOnline.Core
         public void RecebeLance(Interessada cliente, double valor)
         {
             if (Estado == EstadoLeilao.LeilaoEmAndamento)
+            {
+                if(_ultimoCliente != cliente)
                 _lances.Add(new Lance(cliente, valor));
+                _ultimoCliente = cliente;
+            }
         }
 
         public void IniciarPregao()
