@@ -40,12 +40,21 @@ namespace Alura.LeilaoOnline.Core
 
         public void TerminarPregao()
         {
-            Ganhador = Lances
+            if(Estado != EstadoLeilao.LeilaoEmAndamento)
+            {
+                throw new InvalidOperationException("Não é possível terminar o pregão sem que ele tenha começado. Para isso, utilize o método IniciaPregao().");
+            }
+            else
+            {
+                Ganhador = Lances
                 .DefaultIfEmpty(new Lance(null, 0))
                 .OrderBy(x => x.Valor)
                 .LastOrDefault();
 
-            Estado = EstadoLeilao.LeilaoFinalizado;
+                Estado = EstadoLeilao.LeilaoFinalizado;
+            }
+
+            
         }
 
         private bool NovoLanceEhAceito(Interessada cliente, double valor)
