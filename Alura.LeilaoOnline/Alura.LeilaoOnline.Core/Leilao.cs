@@ -25,9 +25,11 @@ namespace Alura.LeilaoOnline.Core
         {
             if (Estado == EstadoLeilao.LeilaoEmAndamento)
             {
-                if(_ultimoCliente != cliente)
-                _lances.Add(new Lance(cliente, valor));
-                _ultimoCliente = cliente;
+                if (NovoLanceEhAceito(cliente, valor))
+                {
+                    _lances.Add(new Lance(cliente, valor));
+                    _ultimoCliente = cliente;
+                }
             }
         }
 
@@ -44,6 +46,12 @@ namespace Alura.LeilaoOnline.Core
                 .LastOrDefault();
 
             Estado = EstadoLeilao.LeilaoFinalizado;
+        }
+
+        private bool NovoLanceEhAceito(Interessada cliente, double valor)
+        {
+            return (Estado == EstadoLeilao.LeilaoEmAndamento)
+                  && (cliente != _ultimoCliente);
         }
     }
 }
